@@ -1,7 +1,11 @@
-const contacts = require("../../db/contacts.json");
+import dbConnect from "../db";
 
 const listContacts = async () => {
-  return contacts;
+  console.log("here is listContacts func from models");
+  const client = await dbConnect;
+  const collection = await client.db().collection("contacts");
+  const result = await collection.find().toArray();
+  return result;
 };
 
-module.exports = listContacts;
+export default listContacts;

@@ -1,6 +1,6 @@
-const { removeContact } = require("../../models/contacts/index");
+import { removeContact } from "../../models/contacts/index";
 
-module.exports = async (req, res, next) => {
+export default async (req, res, next) => {
   const { contactId } = req.params;
   const contactsList = await removeContact(contactId);
   if (contactsList) {

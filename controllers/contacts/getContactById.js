@@ -1,6 +1,6 @@
-const { getContactById } = require("../../models/contacts/index");
+import { getContactById } from "../../models/contacts/index";
 
-module.exports = async (req, res, next) => {
+export default async (req, res, next) => {
   const { contactId } = req.params;
   const contact = await getContactById(contactId);
   if (contact) {

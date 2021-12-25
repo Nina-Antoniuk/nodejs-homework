@@ -1,8 +1,13 @@
-const contacts = require("../../db/contacts.json");
+import { ObjectId } from "mongodb";
+import dbConnect from "../db";
 
 const getContactById = async (contactId) => {
-  const contact = contacts.find((el) => el.id === contactId);
-  return contact;
+  console.log("here is getContactsById func from models");
+  const client = await dbConnect;
+  const collection = await client.db().collection("contacts");
+  const id = ObjectId(contactId);
+  const [result] = await collection.find({ _id: id }).toArray();
+  return result;
 };
 
-module.exports = getContactById;
+export default getContactById;

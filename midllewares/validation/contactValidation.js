@@ -1,4 +1,4 @@
-const Joi = require("joi");
+import Joi from "joi";
 
 const addContactSchema = Joi.object({
   name: Joi.string().alphanum().min(2).max(15).required(),
@@ -32,7 +32,4 @@ const updateValidation = async (req, res, next) => {
   next();
 };
 
-module.exports = {
-  validationOfCreation,
-  updateValidation,
-};
+export default { validationOfCreation, updateValidation };

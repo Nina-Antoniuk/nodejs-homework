@@ -1,5 +1,5 @@
-const path = require("path");
+import path from "path";
 
 const contactsPath = path.resolve(__dirname, "../../db/contacts.json");
 
-module.exports = contactsPath;
+export default contactsPath;

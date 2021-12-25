@@ -1,6 +1,6 @@
-const { updateContact } = require("../../models/contacts/index");
+import { updateContact } from "../../models/contacts/index";
 
-module.exports = async (req, res, next) => {
+export default async (req, res, next) => {
   const contact = await updateContact(req.params.contactId, req.body);
   if (contact) {
     return res.status(200).json(contact);

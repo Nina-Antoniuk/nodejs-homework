@@ -1,13 +1,7 @@
-const { randomUUID } = require("crypto");
-const fs = require("fs/promises");
-const contactsPath = require("./contactsPath");
-const contacts = require("../../db/contacts.json");
+// import dbConnect from "../db";
 
 const addContact = async ({ name, email, phone }) => {
-  const newContact = { name, email, phone, id: randomUUID() };
-  contacts.push(newContact);
-  await fs.writeFile(contactsPath, JSON.stringify(contacts, null, 2));
-  return newContact;
+ console.log('here is addContact function from models file')
 };
 
-module.exports = addContact;
+export default addContact;
