@@ -5,8 +5,9 @@ import {
   addContact,
   updateContact,
   removeContact,
-} from "../../controllers/contacts/index";
-import validation from "../../midllewares/validation/contactValidation";
+  updateStatusContact,
+} from "../../../controllers/contacts";
+import validation from "../../../midllewares/validation/contactValidation";
 
 const router = express.Router();
 
@@ -19,5 +20,11 @@ router.post("/", validation.validationOfCreation, addContact);
 router.delete("/:contactId", removeContact);
 
 router.put("/:contactId", validation.updateValidation, updateContact);
+
+router.patch(
+  "/:contactId",
+  validation.updateFavoritValidation,
+  updateStatusContact
+);
 
 export default router;
