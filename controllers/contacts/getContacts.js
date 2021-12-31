@@ -1,6 +1,7 @@
-const { listContacts } = require("../../models/contacts/index");
+import { HttpCode } from "../../lib/consts";
+import { listContacts } from "../../repository/contacts";
 
-module.exports = async (req, res, next) => {
+export default async (req, res, next) => {
   const data = await listContacts();
-  res.status(200).json(data);
+  res.status(HttpCode.OK).json(data);
 };

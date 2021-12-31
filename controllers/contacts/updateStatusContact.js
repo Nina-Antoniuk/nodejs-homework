@@ -1,8 +1,8 @@
 import { HttpCode } from "../../lib/consts";
-import { updateContact } from "../../repository/contacts";
+import { patchContact } from "../../repository/contacts";
 
 export default async (req, res, next) => {
-  const contact = await updateContact(req.params.contactId, req.body);
+  const contact = await patchContact(req.params.contactId, req.body);
   if (contact) {
     return res.status(HttpCode.OK).json(contact);
   }

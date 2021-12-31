@@ -1,7 +1,7 @@
-const { addContact } = require("../../models/contacts/index");
+import { HttpCode } from "../../lib/consts";
+import { addContact } from "../../repository/contacts";
 
-module.exports = async (req, res, next) => {
-  const { name, email, phone } = req.body;
-  const newContact = await addContact({ name, email, phone });
-  res.status(201).json(newContact);
+export default async (req, res, next) => {
+  const newContact = await addContact(req.body);
+  res.status(HttpCode.CREATED).json(newContact);
 };

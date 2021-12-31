@@ -1,3 +1,3 @@
-# Домашне завдання 2
+# Домашне завдання 3
 
-## Тема: Express, REST API
+## Тема: mongodb, mongoose
