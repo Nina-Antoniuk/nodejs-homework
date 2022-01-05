@@ -40,7 +40,7 @@ const updateValidation = async (req, res, next) => {
   next();
 };
 
-const updateFavoritValidation = async (req, res, next) => {
+const updateFavoriteValidation = async (req, res, next) => {
   try {
     await updateFavoritSchema.validateAsync(req.body);
   } catch (err) {
@@ -56,5 +56,5 @@ const updateFavoritValidation = async (req, res, next) => {
 export default {
   validationOfCreation,
   updateValidation,
-  updateFavoritValidation,
+  updateFavoriteValidation,
 };

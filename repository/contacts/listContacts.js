@@ -1,8 +1,10 @@
-import Contact from "../../model";
+import { Contact } from "../../model";
 
-const listContacts = async () => {
-  console.log("here is listContacts func from models");
-  const result = await Contact.find();
+const listContacts = async (userId) => {
+  const result = await Contact.find({ owner: userId }).populate({
+    path: "owner",
+    select: "name email",
+  });
   return result;
 };
 

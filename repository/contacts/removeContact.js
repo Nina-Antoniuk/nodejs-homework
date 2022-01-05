@@ -1,8 +1,7 @@
-import Contact from "../../model";
+import { Contact } from "../../model";
 
-const removeContact = async (contactId) => {
-  console.log("here is removeContacts func from models");
-  const result = Contact.findByIdAndRemove(contactId);
+const removeContact = async (contactId, userId) => {
+  const result = Contact.findOneAndRemove({ _id: contactId, owner: userId });
   return result;
 };
 

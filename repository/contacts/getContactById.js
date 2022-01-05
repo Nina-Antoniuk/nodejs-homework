@@ -1,8 +1,13 @@
-import Contact from "../../model";
+import { Contact } from "../../model";
 
-const getContactById = async (contactId) => {
-  console.log("here is getContactsById func from models");
-  const result = await Contact.findById(contactId);
+const getContactById = async (contactId, userId) => {
+  const result = await Contact.findOne({
+    _id: contactId,
+    owner: userId,
+  }).populate({
+    path: "owner",
+    select: "name email",
+  });
   return result;
 };
 
