@@ -3,7 +3,8 @@ import { getContactById } from "../../repository/contacts";
 
 export default async (req, res, next) => {
   const { contactId } = req.params;
-  const contact = await getContactById(contactId);
+  const { id: userId } = req.user;
+  const contact = await getContactById(contactId, userId);
   if (contact) {
     return res.status(HttpCode.OK).json(contact);
   }

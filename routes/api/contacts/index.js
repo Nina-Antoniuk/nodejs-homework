@@ -7,23 +7,24 @@ import {
   removeContact,
   updateStatusContact,
 } from "../../../controllers/contacts";
-import validation from "../../../midllewares/validation/contactValidation";
+import validation from "../../../middlewares/validation/contactValidation";
+import guard from "../../../middlewares/guard";
 
 const router = express.Router();
 
-router.get("/", getContacts);
+router.get("/", guard, getContacts);
 
-router.get("/:contactId", getContactById);
+router.get("/:contactId", guard, getContactById);
 
-router.post("/", validation.validationOfCreation, addContact);
+router.post("/", [guard, validation.validationOfCreation], addContact);
 
-router.delete("/:contactId", removeContact);
+router.delete("/:contactId", guard, removeContact);
 
-router.put("/:contactId", validation.updateValidation, updateContact);
+router.put("/:contactId", [guard, validation.updateValidation], updateContact);
 
 router.patch(
   "/:contactId",
-  validation.updateFavoritValidation,
+  [guard, validation.updateFavoriteValidation],
   updateStatusContact
 );
 
