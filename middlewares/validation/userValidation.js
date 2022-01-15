@@ -4,6 +4,7 @@ import { HttpCode } from "../../lib/consts";
 const userSchema = Joi.object({
   password: Joi.string().required(),
   email: Joi.string().email().required(),
+  avatar: Joi.func(),
 });
 
 const userValidation = async (req, res, next) => {

@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
+import gravatar from "gravatar";
 
 const { Schema, model } = mongoose;
 
@@ -13,6 +14,12 @@ const userSchema = new Schema(
       type: String,
       required: [true, "Email is required"],
       unique: true,
+    },
+    avatarURL: {
+      type: String,
+      default: function () {
+        return gravatar.url(this.email, { s: "250" }, true);
+      },
     },
     subscription: {
       type: String,
