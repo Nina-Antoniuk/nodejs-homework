@@ -14,6 +14,7 @@ const findByToken = async (token) => {
 
 const create = async (body) => {
   const user = new User(body);
+  console.log("create repo", user);
   return await user.save();
 };
 
@@ -21,4 +22,10 @@ const updateToken = async (id, token) => {
   return await User.updateOne({ _id: id }, { token });
 };
 
-export default { findById, findByEmail, findByToken, create, updateToken };
+export default {
+  findById,
+  findByEmail,
+  findByToken,
+  create,
+  updateToken,
+};

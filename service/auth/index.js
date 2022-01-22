@@ -5,8 +5,9 @@ const SECRET_KEY = process.env.SECRET_KEY;
 
 class AuthService {
   async createUser(body) {
-    const { id, name, email } = await Users.create(body);
-    return { id, name, email };
+    const { id, email } = await Users.create(body);
+    // console.log("users in repo", Users); //methods in  repo/users
+    return { id, email };
   }
 
   async getToken(user) {
