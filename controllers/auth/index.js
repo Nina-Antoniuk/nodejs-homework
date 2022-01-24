@@ -1,32 +1,50 @@
 import { HttpCode } from "../../lib/consts";
 import AuthService from "../../service/auth";
+import { EmailService, SenderSendGrid } from "../../service/email";
 
 const authService = new AuthService();
 
 class AuthControllers {
   async registration(req, res, next) {
-    const { email } = req.body;
-    const isUserExist = await authService.isUserExist(email);
-    if (isUserExist) {
-      return res.status(HttpCode.CONFLICT).json({
-        Status: `${HttpCode.CONFLICT} Conflict`,
+    try {
+      const { email } = req.body;
+      const isUserExist = await authService.isUserExist(email);
+      if (isUserExist) {
+        return res.status(HttpCode.CONFLICT).json({
+          Status: `${HttpCode.CONFLICT} Conflict`,
+          "Content-Type": "application/json",
+          ResponseBody: {
+            message: "Email in use",
+          },
+        });
+      }
+
+      const userData = await authService.createUser(req.body);
+      const emailService = new EmailService(
+        process.env.NODE_ENV,
+        new SenderSendGrid()
+      );
+
+      const isSend = await emailService.sendVerifyEmail(
+        email,
+        userData.name,
+        userData.verificationToken
+      );
+
+      res.status(HttpCode.CREATED).json({
+        Status: ` ${HttpCode.CREATED} Created`,
         "Content-Type": "application/json",
         ResponseBody: {
-          message: "Email in use",
+          user: {
+            email,
+            subscription: "started",
+            status: isSend,
+          },
         },
       });
+    } catch (error) {
+      next(error);
     }
-    await authService.createUser(req.body);
-    res.status(HttpCode.CREATED).json({
-      Status: ` ${HttpCode.CREATED} Created`,
-      "Content-Type": "application/json",
-      ResponseBody: {
-        user: {
-          email,
-          subscription: "started",
-        },
-      },
-    });
   }
 
   async login(req, res, next) {

@@ -14,12 +14,22 @@ const findByToken = async (token) => {
 
 const create = async (body) => {
   const user = new User(body);
-  console.log("create repo", user);
   return await user.save();
 };
 
 const updateToken = async (id, token) => {
   return await User.updateOne({ _id: id }, { token });
+};
+
+const findByVerifyToken = async (verificationToken) => {
+  return await User.findOne({ verificationToken });
+};
+
+const updateVerify = async (id, status) => {
+  return await User.updateOne(
+    { _id: id },
+    { verify: status, verificationToken: null }
+  );
 };
 
 export default {
@@ -28,4 +38,6 @@ export default {
   findByToken,
   create,
   updateToken,
+  findByVerifyToken,
+  updateVerify,
 };

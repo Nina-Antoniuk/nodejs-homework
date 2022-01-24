@@ -2,6 +2,7 @@ import Joi from "joi";
 import { HttpCode } from "../../lib/consts";
 
 const userSchema = Joi.object({
+  name: Joi.string().required(),
   password: Joi.string().required(),
   email: Joi.string().email().required(),
   avatar: Joi.func(),
